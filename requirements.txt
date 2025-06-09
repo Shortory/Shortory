@@ -1,0 +1,8 @@
+flask
+yt-dlp
+google-api-python-client
+opencv-python
+dlib
+pillow
+numpy
+tensorflow
