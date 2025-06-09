@@ -23,5 +23,6 @@ MobileNetV2 기반 전이 학습(Transfer Learning)과 파인튜닝(Fine-tuning)
 
 #### 📊 Phase 1 Train VS Validation
 <img width="600" alt="image" src="https://github.com/user-attachments/assets/c5567d31-d10f-4719-9613-0a7caa605ceb" />
+
 #### 📊 Phase 2 Fine-tuning
 <img width="600" alt="image" src="https://github.com/user-attachments/assets/3e408dd9-1cd0-4607-967f-db3828e4e2aa" />
