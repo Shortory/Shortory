@@ -125,7 +125,7 @@ emotion_tl2_model.h5 모델을 다운받아 실행 가능합니다.
   <img src="https://github.com/user-attachments/assets/612ce1b7-e56e-4361-b134-efd1e6195990" width="700" />
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/c5556350-8592-4f1d-9e0e-107eedc3704e" width="700" />
+  <img src="https://github.com/user-attachments/assets/3b49a1d3-f3ec-43e4-9740-119852824c05" width="700" />
 
 </p>
 
