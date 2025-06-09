@@ -51,6 +51,15 @@
 
 <br />
 
+## ⚙️ Architecture 구조도
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/08abdd7f-795a-4b5e-9772-22cf0ca7cf61" alt="architecture" width="70%">
+</p>
+
+
+<br />
+
 ## 타임스탬프(timestamp) 정의
 
 **타임스탬프**는 영상 속 특정 시점을 나타내는 시간 정보로, 일반적으로 `"00:45"`, `"3:15"`, `"12:34"`와 같은 **`분:초` 또는 `시:분:초` 형식**으로 표현됩니다.
@@ -136,7 +145,7 @@ emotion_tl2_model.h5 모델을 다운받아 실행 가능합니다.
 </p>
 
 ## 실행 방법
-**1, 가상환경 및 패키지 설치**
+**1. 가상환경 및 패키지 설치**
 <br>
 pip install -r requirements.txt
 
