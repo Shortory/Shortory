@@ -93,6 +93,13 @@ emotion_tl2_model.h5 모델을 다운받아 실행 가능합니다.
 #### 📉 Phase 2 Fine-tuning
 <img width="600" alt="image" src="https://github.com/user-attachments/assets/3e408dd9-1cd0-4607-967f-db3828e4e2aa" />
 
+![메인화면](https://github.com/user-attachments/assets/ecc7faff-036a-49ef-ae78-73f645144bff)
+<img width="1502" alt="감정인식url" src="https://github.com/user-attachments/assets/c1d13bfb-fb07-4805-a288-fe94f46e25ae" />
+![감정인식화면](https://github.com/user-attachments/assets/cd7020b7-423a-4f74-96ee-617b13228042)
+![감정인식결과화면](https://github.com/user-attachments/assets/e3357126-5745-46cc-949c-35716c54babf)
+![감정인식카테고리](https://github.com/user-attachments/assets/1d266558-a883-4040-b43c-c1818b0b33c2)
+
+
 
 <br />
 
