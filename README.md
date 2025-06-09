@@ -156,6 +156,56 @@ python app.py
 
 <br />   
 
+## 프로젝트 폴더 구조
+
+```
+shortoty_web/
+│
+├── backend/                          # 백엔드 로직 처리 (Flask 서버 및 분석 스크립트)
+│   ├── app.py                        # 메인 Flask 서버 및 라우팅
+│   ├── run_analysis.py               # 실시간 감정 분석 처리 로직
+│   └── create_shorts.py              # 댓글 기반 타임스탬프 분석 및 숏폼 생성
+│
+├── models/                           # 감정 분석을 위한 학습 모델 및 얼굴 인식 도구
+│   ├── emotion_tl2_model.h5          # 감정 분류 모델 (Keras 기반)
+│   └── shape_predictor_68_*.dat      # 얼굴 랜드마크 예측기 (dlib 기반)
+│
+├── timestamp_uploads/                # 댓글 기반 분석을 위한 원본 영상 저장 폴더
+│
+├── emotion_uploads/                  # 감정 분석용 원본 영상 저장 폴더
+│
+├── static/                           # 정적 파일 및 분석 결과 저장소
+│   ├── shorts_output/                # 감정 분석 기반 숏폼 영상 결과
+│   │   └── categories/               # 감정별 클립 분류 (Angry, Happy, etc.)
+│   └── timestamp_output/             # 댓글 기반 숏폼 결과 저장
+│
+├── frontend/                         # 프론트엔드 화면 구성 (Flask HTML 템플릿)
+│   └── templates/
+│       ├── home.html                 # 메인 진입 페이지
+│       ├── emotion_form.html        # 감정 분석용 URL 입력 폼
+│       ├── timestamp_form.html      # 댓글 기반 분석 URL 입력 폼
+│       ├── loading.html             # 댓글 분석 대기 화면
+│       ├── analyzing.html           # 감정 분석 진행 중 화면
+│       ├── result.html              # 감정 분석 결과 페이지
+│       ├── categories.html          # 감정별 클립 보관함
+│       └── shorts_comment_result.html # 댓글 기반 숏폼 결과 및 다운로드
+│
+├── requirements.txt                  # 의존성 라이브러리 목록
+└── README.md                         # 프로젝트 개요 및 설명 문서
+
+```
+
+## 깃허브 폴더 설명
+
+- **backend/** : Flask 서버와 분석 스크립트 (app.py, run_analysis.py, create_shorts.py 등)
+- **models/** : 감정 분석 및 얼굴 인식 모델 파일
+- **frontend/** : 사용자 인터페이스 HTML 템플릿 (home.html 등)
+- **static/** : 생성된 숏폼 영상 및 감정별 클립 저장 폴더
+- **emotion_uploads/** : 감정 분석용 업로드 영상 저장
+- **timestamp_uploads/** : 댓글 기반 분석용 업로드 영상 저장
+
+<br />
+
 <p align="center"><strong>
   
 💚 팀원 소개</strong></p>
