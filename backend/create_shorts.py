@@ -7,9 +7,14 @@ from urllib.parse import urlparse, parse_qs
 from googleapiclient.discovery import build
 from collections import Counter
 
-YOUTUBE_API_KEY = 'AIzaSyBirO4FkbsDGxAn7DIG5muexbDTkY-wLVk'
-OUTPUT_DIR = 'temp_clips'
-os.makedirs(OUTPUT_DIR, exist_ok=True)
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+ROOT_DIR = os.path.abspath(os.path.join(BASE_DIR, '..'))
+
+BASE_OUTPUT_DIR = os.path.join(ROOT_DIR, 'static', 'timestamp_output')
+UPLOAD_DIR = os.path.join(ROOT_DIR, 'timestamp_uploads')
+
+os.makedirs(BASE_OUTPUT_DIR, exist_ok=True)
+os.makedirs(UPLOAD_DIR, exist_ok=True)
 
 def extract_timestamps(text):
     pattern = r'\b(?:[0-5]?\d:)?[0-5]?\d:[0-5]\d\b'
@@ -33,7 +38,7 @@ def extract_video_id(url):
     return None
 
 def fetch_comments(video_id, max_pages=None):
-    youtube = build('youtube', 'v3', developerKey=YOUTUBE_API_KEY)
+    youtube = build('youtube', 'v3', developerKey='AIzaSyBirO4FkbsDGxAn7DIG5muexbDTkY-wLVk')
     comments = []
     next_page_token = None
     page_count = 0
@@ -82,9 +87,9 @@ def group_timestamps(timestamps, threshold=5):
 
     return grouped
 
-def download_full_video(url, output_path):
-    os.makedirs(output_path, exist_ok=True)
-    output_file = os.path.join(output_path, 'full_video.mp4')
+def download_full_video(url, output_base_dir, video_id):
+    os.makedirs(output_base_dir, exist_ok=True)
+    output_file = os.path.join(output_base_dir, f'{video_id}.mp4')
 
     if os.path.exists(output_file):
         os.remove(output_file)
@@ -103,9 +108,9 @@ def download_full_video(url, output_path):
 
     return output_file
 
-def create_clips_ffmpeg(video_path, timestamps):
-    for f in os.listdir(OUTPUT_DIR):
-        os.remove(os.path.join(OUTPUT_DIR, f))
+def create_clips_ffmpeg(video_path, timestamps, video_id):
+    video_output_dir = os.path.join(BASE_OUTPUT_DIR, video_id)
+    os.makedirs(video_output_dir, exist_ok=True)
 
     timestamp_log = []
 
@@ -113,7 +118,7 @@ def create_clips_ffmpeg(video_path, timestamps):
         start = max(sec - 10, 0)
         duration = 20
         filename = f'short_{idx + 1}.mp4'
-        short_clip_path = os.path.join(OUTPUT_DIR, filename)
+        short_clip_path = os.path.join(video_output_dir, filename)
 
         result = subprocess.run([
             'ffmpeg',
@@ -135,7 +140,7 @@ def create_clips_ffmpeg(video_path, timestamps):
 
         timestamp_log.append((filename, sec))
 
-    with open(os.path.join(OUTPUT_DIR, 'timestamps.txt'), 'w') as f:
+    with open(os.path.join(video_output_dir, 'timestamps.txt'), 'w') as f:
         for fname, ts in timestamp_log:
             f.write(f"{fname},{ts}\n")
 
@@ -168,8 +173,8 @@ def main():
     top_reps = sorted(group_reps, key=lambda x: x[1], reverse=True)[:5]
     selected = [ts for ts, _ in top_reps]
 
-    video_path = download_full_video(youtube_url, output_path='static')
-    create_clips_ffmpeg(video_path, selected)
+    video_path = download_full_video(youtube_url, output_base_dir=UPLOAD_DIR, video_id=video_id)
+    create_clips_ffmpeg(video_path, selected, video_id)
 
 if __name__ == "__main__":
     main()
