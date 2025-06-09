@@ -20,5 +20,8 @@ MobileNetV2 기반 전이 학습(Transfer Learning)과 파인튜닝(Fine-tuning)
 
 ### 3. 학습 전략
 - **1단계 (전이 학습)** →  **2단계 (파인튜닝)** → **클래스 불균형 보정** → **콜백**
-<img width="379" alt="image" src="https://github.com/user-attachments/assets/c5567d31-d10f-4719-9613-0a7caa605ceb" />
-<img width="367" alt="image" src="https://github.com/user-attachments/assets/3e408dd9-1cd0-4607-967f-db3828e4e2aa" />
+
+#### 📊 Phase 1 Train VS Validation
+<img width="600" alt="image" src="https://github.com/user-attachments/assets/c5567d31-d10f-4719-9613-0a7caa605ceb" />
+#### 📊 Phase 2 Fine-tuning
+<img width="600" alt="image" src="https://github.com/user-attachments/assets/3e408dd9-1cd0-4607-967f-db3828e4e2aa" />
