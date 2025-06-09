@@ -168,7 +168,7 @@ def main():
     top_reps = sorted(group_reps, key=lambda x: x[1], reverse=True)[:5]
     selected = [ts for ts, _ in top_reps]
 
-    video_path = download_full_video(youtube_url, output_path='static')
+    video_path = download_full_video(youtube_url, output_path='temp_clips')
     create_clips_ffmpeg(video_path, selected)
 
 if __name__ == "__main__":
