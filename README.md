@@ -46,6 +46,10 @@
 ## 🌱 감정 인식 모델 생성 과정
 MobileNetV2 기반 전이 학습(Transfer Learning)과 파인튜닝(Fine-tuning)을 활용하여 감정 인식 모델을 구축하였습니다.
 
+아래 버튼을 클릭하면 Colab에서 직접 확인할 수 있습니다:
+
+👉 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1x7WFKhHi4zHMAH6r4oPw4L2PdZCwyqqW?usp=sharing)
+
 ### 1. 데이터 구성
 - **데이터셋**: FER2013
 - **클래스**: angry, happy, neutral, sad, surprise (총 5개 감정)
