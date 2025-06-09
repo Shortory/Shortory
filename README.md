@@ -174,7 +174,7 @@ shortoty_web/
 │   └── create_shorts.py              # 댓글 기반 타임스탬프 분석 및 숏폼 생성
 │
 ├── models/                           # 감정 분석을 위한 학습 모델
-│   ├── emotion_tl2_model.h5          # 감정 분류 모델 (Keras 기반)
+│   └── emotion_tl2_model.h5          # 감정 분류 모델 (Keras 기반)
 │
 ├── timestamp_uploads/                # 댓글 기반 분석을 위한 원본 영상 저장 폴더
 │
