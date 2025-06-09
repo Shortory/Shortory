@@ -160,7 +160,7 @@ python app.py
   
 💚 팀원 소개</strong></p>
 
-| FULLSATCK | FE & DESIGN | AI | AI |
+| FULLSATCK | BACKEND | AI | AI & DESIGN |
 | --- | --- | --- | --- |
 | 황채원 | 문성원 | 박시현 | 한송미 |
 | https://github.com/ChaewonHwang-01 | https://github.com/m-seongwon | https://github.com/Sihyun32 | https://github.com/0weny |
