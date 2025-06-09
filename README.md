@@ -98,10 +98,13 @@ emotion_tl2_model.h5 모델을 다운받아 실행 가능합니다.
 
 
 ## 결과 화면
-
+<h4 align="center">[메인 화면]</strong></h4>
 <p align="center">
   <img src="https://github.com/user-attachments/assets/ecc7faff-036a-49ef-ae78-73f645144bff" width="700"/>
 </p>
+
+<br>
+<h4 align="center">[감정분석 기반 숏폼 생성]</strong></h4>
 
 <p align="center">
   <img src="https://github.com/user-attachments/assets/c1d13bfb-fb07-4805-a288-fe94f46e25ae" width="700"/>
@@ -118,6 +121,9 @@ emotion_tl2_model.h5 모델을 다운받아 실행 가능합니다.
 <p align="center">
   <img src="https://github.com/user-attachments/assets/1d266558-a883-4040-b43c-c1818b0b33c2" width="700"/>
 
+<br>
+<h4 align="center">[타임스탬프 기반 숏폼 생성]</strong></h4>
+
 <p align="center">
   <img src="https://github.com/user-attachments/assets/8a930645-317e-440b-983e-13675fbcb409" width="700" />
   
@@ -130,17 +136,17 @@ emotion_tl2_model.h5 모델을 다운받아 실행 가능합니다.
 </p>
 
 ## 실행 방법
-### 가상환경 및 패키지 설치
+**1, 가상환경 및 패키지 설치**
 pip install -r requirements.txt
 
-### 감정 인식 모델 다운로드
+**2. 감정 인식 모델 다운로드**
 🔗 https://drive.google.com/file/d/18ryNf-Tt2eEFnr6hsnPOJA6nmwyaEuwA/view?usp=share_link
 
 🔗 https://drive.google.com/file/d/1HiLBszGCU1svIzWQSjBwiK1koGd8QoCv/view?usp=share_link
 
 다운로드 후 프로젝트 내의 models 폴더에 저장
 
-### Flask 서버 실행
+**3. Flask 서버 실행**
 python app.py
 
 
@@ -154,5 +160,4 @@ python app.py
 | FULLSATCK | FE & DESIGN | AI | AI |
 | --- | --- | --- | --- |
 | 황채원 | 문성원 | 박시현 | 한송미 |
-| [Soyeon-Cha](https://github.com/Soyeon-Cha) | [songing01](https://github.com/songing01) | [yenncye](https://github.com/yenncye) |
-
+| https://github.com/ChaewonHwang-01 | https://github.com/m-seongwon | https://github.com/Sihyun32 | https://github.com/0weny |
