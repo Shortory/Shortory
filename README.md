@@ -117,7 +117,25 @@ emotion_tl2_model.h5 모델을 다운받아 실행 가능합니다.
 
 <p align="center">
   <img src="https://github.com/user-attachments/assets/1d266558-a883-4040-b43c-c1818b0b33c2" width="700"/>
+
+<p align="center">
+  <img width="1501" alt="타임스탬프url" src="https://github.com/user-attachments/assets/8a930645-317e-440b-983e-13675fbcb409" />
+
 </p>
+
+## 실행 방법
+### 가상환경 및 패키지 설치
+pip install -r requirements.txt
+
+### 감정 인식 모델 다운로드
+🔗 https://drive.google.com/file/d/18ryNf-Tt2eEFnr6hsnPOJA6nmwyaEuwA/view?usp=share_link
+
+🔗 https://drive.google.com/file/d/1HiLBszGCU1svIzWQSjBwiK1koGd8QoCv/view?usp=share_link
+
+다운로드 후 프로젝트 내의 models 폴더에 저장
+
+### Flask 서버 실행
+python app.py
 
 
 
