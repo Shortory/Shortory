@@ -2,8 +2,11 @@
 찰나를 포착하다, Shortory(숏토리) 
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/fb1a31f0-7e21-4b52-897d-69b454030164" width="300" />
+  <img src="https://github.com/user-attachments/assets/255f9526-a164-4130-b27d-3e6b5ef13110" width="300" />
 </p>
+
+
+
 
 시청자의 감정 😊과 댓글의 타임스탬프(1:42)를 분석해 영상 속 하이라이트를 자동으로 추출하는 숏폼 제작 웹 서비스
 
