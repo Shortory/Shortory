@@ -208,9 +208,35 @@ shortoty_web/
 
 <p align="center"><strong>
   
-💚 팀원 소개</strong></p>
+## 💚 팀원 소개</strong></p>
 
-| FULLSATCK | BACKEND | AI | AI & DESIGN |
-| --- | --- | --- | --- |
-| 황채원 | 문성원 | 박시현 | 한송미 |
-| https://github.com/ChaewonHwang-01 | https://github.com/m-seongwon | https://github.com/Sihyun32 | https://github.com/0weny |
+<table align="center">
+  <thead>
+    <tr>
+      <th>FULLSTACK</th>
+      <th>BACKEND</th>
+      <th>AI</th>
+      <th>AI & DESIGN</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>황채원</td>
+      <td>문성원</td>
+      <td>박시현</td>
+      <td>한송미</td>
+    </tr>
+    <tr>
+      <td><img src="https://github.com/user-attachments/assets/0a99a63f-3aee-4581-b3c6-f8d7a3017a27" width="100"/></td>
+      <td><img src="https://github.com/user-attachments/assets/bb1d2e9a-f1e6-4a12-ba8c-19bcfcab2492" width="100"/></td>
+      <td><img src="https://github.com/user-attachments/assets/ce52b7d9-39cc-4004-ac1b-9caf91b4b8e6" width="100"/></td>
+      <td><img src="https://github.com/user-attachments/assets/07d9bece-9517-4d7f-9bf3-b553fbb877cb" width="100"/></td>
+    </tr>
+    <tr>
+      <td><a href="https://github.com/ChaewonHwang-01">ChaewonHwang-01</a></td>
+      <td><a href="https://github.com/m-seongwon">m-seongwon</a></td>
+      <td><a href="https://github.com/Sihyun32">Sihyun32</a></td>
+      <td><a href="https://github.com/0weny">0weny</a></td>
+    </tr>
+  </tbody>
+</table>
