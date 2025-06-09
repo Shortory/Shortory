@@ -1,5 +1,8 @@
 # 🎬 숏토리(Shortory) - 시청자 반응 기반 숏폼 자동 생성 서비스  
-**찰나를 포착하다, Shortory(숏토리)** 
+
+<p align="center"><strong>찰나를 포착하다, Shortory(숏토리)</strong></p>
+
+
 
 <p align="center">
   <img src="https://github.com/user-attachments/assets/255f9526-a164-4130-b27d-3e6b5ef13110" width="300" />
@@ -7,17 +10,23 @@
 
 **시청자의 감정 😊과 댓글의 타임스탬프를 분석해 영상 속 하이라이트를 자동으로 추출하는 숏폼 제작 웹 서비스**  
 
+<br />
+
 ## 프로젝트 개요
 **숏토리(shortory)** 는 유튜브 댓글의 타임스탬프와 시청자의 표정을 분석하여, 숏폼(Short-form) 하이라이트 영상을 자동 생성하는 웹 서비스입니다.  
 웹캠을 사용하여 사용자의 감정 데이터를 분석하고, 분석 결과를 바탕으로 감정이 두드러지게 나타나는 장면을 자동으로 선정하여 숏폼 영상을 생성합니다. 
 
-## 🚀 핵심 아이디어
+<br />
+
+## 핵심 아이디어
 
 > 댓글과 표정, 모두가 말해주는 진짜 하이라이트!
 > 
 - `타임스탬프` 가 포함된 댓글 자동 수집&분석
 - 웹캠 기반 **표정 분석으로 감정 + 집중도** 추적
 - **몰입도 높은 순간**만 골라 감정 기반 하이라이트 완성!
+
+<br />
 
 ## ⭐️ 주요 기능 
 ### 1. 감정 기반 숏츠 생성
@@ -36,6 +45,8 @@
 | 📂 숏폼 분류 | 감정별 숏폼 정렬 및 다운로드 |
 ---
 
+<br />
+
 ## 타임스탬프(timestamp) 정의
 
 **타임스탬프**는 영상 속 특정 시점을 나타내는 시간 정보로, 일반적으로 `"00:45"`, `"3:15"`, `"12:34"`와 같은 **`분:초` 또는 `시:분:초` 형식**으로 표현됩니다.
@@ -45,12 +56,15 @@
 > ✅ 숏토리에서는 이 댓글 속 타임스탬프를 자동 감지하여, 시청자가 선택한 하이라이트 구간을 숏폼 영상으로 자동 생성합니다.
 >
 
-![image](https://github.com/user-attachments/assets/06de1262-833a-4bfb-8550-9ace84819e4f)
+![KakaoTalk_Photo_2025-06-09-14-32-21](https://github.com/user-attachments/assets/fb7c50c5-995d-4a43-9227-73cd851575a2)
+
+출처: 뿅뿅지구오락실3 tvN D ENT 유튜브 영상 댓글 화면 캡처
+https://www.youtube.com/watch?v=aLF3YHUvm7E 
 
 
+<br />
 
-
-## 🌱 감정 인식 모델 생성 과정
+## 감정 인식 모델 생성 과정
 MobileNetV2 기반 전이 학습(Transfer Learning)과 파인튜닝(Fine-tuning)을 활용하여 감정 인식 모델을 구축하였습니다.
 emotion_tl2_model.h5 모델을 다운받아 실행 가능합니다.
 
@@ -73,3 +87,9 @@ emotion_tl2_model.h5 모델을 다운받아 실행 가능합니다.
 
 #### 📉 Phase 2 Fine-tuning
 <img width="600" alt="image" src="https://github.com/user-attachments/assets/3e408dd9-1cd0-4607-967f-db3828e4e2aa" />
+
+
+<br />
+
+
+
