@@ -152,8 +152,6 @@ pip install -r requirements.txt
 **2. 감정 인식 모델 다운로드**
 <br>
 🔗 https://drive.google.com/file/d/18ryNf-Tt2eEFnr6hsnPOJA6nmwyaEuwA/view?usp=share_link
-<br>
-🔗 https://drive.google.com/file/d/1HiLBszGCU1svIzWQSjBwiK1koGd8QoCv/view?usp=share_link
 
 다운로드 후 프로젝트 내의 models 폴더에 저장
 
