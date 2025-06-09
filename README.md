@@ -175,9 +175,8 @@ shortoty_web/
 │   ├── run_analysis.py               # 실시간 감정 분석 처리 로직
 │   └── create_shorts.py              # 댓글 기반 타임스탬프 분석 및 숏폼 생성
 │
-├── models/                           # 감정 분석을 위한 학습 모델 및 얼굴 인식 도구
+├── models/                           # 감정 분석을 위한 학습 모델
 │   ├── emotion_tl2_model.h5          # 감정 분류 모델 (Keras 기반)
-│   └── shape_predictor_68_*.dat      # 얼굴 랜드마크 예측기 (dlib 기반)
 │
 ├── timestamp_uploads/                # 댓글 기반 분석을 위한 원본 영상 저장 폴더
 │
@@ -207,7 +206,7 @@ shortoty_web/
 ## 깃허브 폴더 설명
 
 - **backend/** : Flask 서버와 분석 스크립트 (app.py, run_analysis.py, create_shorts.py)
-- **models/** : 감정 분석 및 얼굴 인식 모델 파일
+- **models/** : 감정 분석 모델 파일
 - **frontend/** : 사용자 인터페이스 HTML 템플릿
 - **static/** : 생성된 숏폼 영상 및 감정별 클립 저장 폴더
 - **emotion_uploads/** : 감정 분석용 업로드 원본 영상 저장
