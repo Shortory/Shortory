@@ -54,9 +54,8 @@
 ## ⚙️ Architecture 구조도
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/08abdd7f-795a-4b5e-9772-22cf0ca7cf61" alt="architecture" width="70%">
+  <img src="https://github.com/user-attachments/assets/2f4d1c7e-9c80-481e-a640-e14c72fefcc3" alt="architecture" width="70%">
 </p>
-
 
 <br />
 
@@ -69,7 +68,7 @@
 > ✅ 숏토리에서는 이 댓글 속 타임스탬프를 자동 감지하여, 시청자가 선택한 하이라이트 구간을 숏폼 영상으로 자동 생성합니다.
 >
 
-![KakaoTalk_Photo_2025-06-09-14-32-21](https://github.com/user-attachments/assets/fb7c50c5-995d-4a43-9227-73cd851575a2)
+<img src="https://github.com/user-attachments/assets/fb7c50c5-995d-4a43-9227-73cd851575a2" alt="타임스탬프 예시" width="60%">
 
 출처: 뿅뿅지구오락실3 tvN D ENT 유튜브 영상 댓글 화면 캡처
 <br>
