@@ -103,12 +103,12 @@
       {% for item in videos_info %}
         <li class="video-card">
           <video controls autoplay muted loop>
-            <source src="{{ url_for('stream_file', filename=item.filename) }}" type="video/mp4">
+            <source src="{{ url_for('stream_file', task_id=item.task_id, filename=item.filename) }}" type="video/mp4">
             브라우저가 video 태그를 지원하지 않습니다.
           </video>
           <p class="filename">{{ item.filename }}</p>
           <p class="timestamps">타임스탬프: {{ item.timestamps | join(', ') }}초</p>
-          <a href="{{ url_for('download_file', filename=item.filename) }}" class="btn-download" download>다운로드</a>
+          <a href="{{ url_for('download_file', task_id=item.task_id, filename=item.filename) }}" class="btn-download" download>다운로드</a>
         </li>
       {% endfor %}
     </ul>
