@@ -1,6 +1,10 @@
 # 🎬 숏토리(Shortory) - 시청자 반응 기반 숏폼 자동 생성 서비스  
 
-<p align="center"><strong>찰나를 포착하다, Shortory(숏토리)</strong></p>
+
+<h3 align="center">찰나를 포착하다, <strong>Shortory(숏토리)</strong></h3>
+
+
+
 
 
 
@@ -43,7 +47,7 @@
 | 🧠 감정/집중 분석 | 표정 분석과 집중도 분석을 통해 감정 몰입도 높은 장면 감지 |
 | ✂️ 클립 생성 | ±10초 범위 영상 추출 |
 | 📂 숏폼 분류 | 감정별 숏폼 정렬 및 다운로드 |
----
+
 
 <br />
 
@@ -59,6 +63,7 @@
 ![KakaoTalk_Photo_2025-06-09-14-32-21](https://github.com/user-attachments/assets/fb7c50c5-995d-4a43-9227-73cd851575a2)
 
 출처: 뿅뿅지구오락실3 tvN D ENT 유튜브 영상 댓글 화면 캡처
+<br>
 https://www.youtube.com/watch?v=aLF3YHUvm7E 
 
 
