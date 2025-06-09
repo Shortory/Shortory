@@ -187,7 +187,7 @@ shortoty_web/
 │
 ├── frontend/                         # 프론트엔드 화면 구성 (Flask HTML 템플릿)
 │   └── templates/
-│       ├── home.html                 # 메인 진입 페이지
+│       ├── home.html                # 메인 진입 페이지
 │       ├── emotion_form.html        # 감정 분석용 URL 입력 폼
 │       ├── timestamp_form.html      # 댓글 기반 분석 URL 입력 폼
 │       ├── loading.html             # 댓글 분석 대기 화면
