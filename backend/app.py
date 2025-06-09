@@ -9,6 +9,9 @@ import subprocess
 import yt_dlp
 import sys
 from urllib.parse import urlparse, parse_qs
+from base64 import b64decode
+from io import BytesIO
+from PIL import Image
 
 from run_analysis import analyze_frame_np
 from create_shorts import (
@@ -20,24 +23,29 @@ from create_shorts import (
     download_full_video,
     create_clips_ffmpeg
 )
-from base64 import b64decode
-from io import BytesIO
-from PIL import Image
+
+# 프로젝트 루트와 폴더 경로 설정
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))        # .../shortoty_web/backend
+ROOT_DIR = os.path.abspath(os.path.join(BASE_DIR, '..'))     # .../shortoty_web
+
+EMOTION_UPLOAD_DIR = os.path.join(ROOT_DIR, 'emotion_uploads')
+TIMESTAMP_UPLOAD_DIR = os.path.join(ROOT_DIR, 'timestamp_uploads')
+SHORTS_OUTPUT_DIR = os.path.join(ROOT_DIR, 'static', 'shorts_output')
+TIMESTAMP_OUTPUT_DIR = os.path.join(ROOT_DIR, 'static', 'timestamp_output')
+
+# Flask 앱 생성 및 템플릿, static 경로 명시
+TEMPLATE_DIR = os.path.join(ROOT_DIR, 'frontend', 'templates')
+STATIC_DIR = os.path.join(ROOT_DIR, 'static')
+
+app = Flask(__name__, template_folder=TEMPLATE_DIR, static_folder=STATIC_DIR)
 
 ANALYSIS_DATA = {}
-
-app = Flask(__name__)
-
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-UPLOAD_FOLDER = os.path.join(BASE_DIR, 'uploads')
-RESULT_FOLDER = os.path.join(BASE_DIR, 'static', 'shorts_output')
-TEMP_CLIP_FOLDER = os.path.join(BASE_DIR, 'temp_clips')
-os.makedirs(UPLOAD_FOLDER, exist_ok=True)
-os.makedirs(RESULT_FOLDER, exist_ok=True)
-os.makedirs(TEMP_CLIP_FOLDER, exist_ok=True)
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-
 PROGRESS = {}
+
+# 필요한 폴더 미리 생성
+for path in [EMOTION_UPLOAD_DIR, TIMESTAMP_UPLOAD_DIR, SHORTS_OUTPUT_DIR, TIMESTAMP_OUTPUT_DIR]:
+    os.makedirs(path, exist_ok=True)
+
 
 def extract_video_id_from_url(url):
     parsed_url = urlparse(url)
@@ -50,17 +58,21 @@ def extract_video_id_from_url(url):
             return parsed_url.path.split("/")[2]
     return None
 
+
 @app.route('/')
 def home():
     return render_template('home.html')
+
 
 @app.route('/emotion_form')
 def emotion_form():
     return render_template('emotion_form.html')
 
+
 @app.route('/timestamp_form')
 def timestamp_form():
     return render_template('timestamp_form.html')
+
 
 @app.route('/analyze_url', methods=['POST'])
 def analyze_url():
@@ -73,8 +85,7 @@ def analyze_url():
         return '유효하지 않은 유튜브 링크입니다.', 400
 
     task_id = str(uuid.uuid4())
-    filename = f"{task_id}.mp4"
-    output_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+    output_path = os.path.join(EMOTION_UPLOAD_DIR, f"{task_id}.mp4")
 
     ydl_opts = {
         'outtmpl': output_path,
@@ -91,6 +102,7 @@ def analyze_url():
 
     return redirect(url_for('analyzing_page', youtube_id=video_id, task_id=task_id))
 
+
 @app.route('/analyzing')
 def analyzing_page():
     youtube_id = request.args.get('youtube_id')
@@ -98,6 +110,7 @@ def analyzing_page():
     if not youtube_id or not task_id:
         return "유효하지 않은 요청입니다.", 400
     return render_template('analyzing.html', youtube_id=youtube_id, task_id=task_id)
+
 
 @app.route('/start_analysis', methods=['POST'])
 def start_analysis():
@@ -108,6 +121,7 @@ def start_analysis():
 
     ANALYSIS_DATA[task_id] = []
     return jsonify({"status": "started"})
+
 
 @app.route('/analyze_frame', methods=['POST'])
 def analyze_frame():
@@ -141,6 +155,7 @@ def analyze_frame():
 
     return jsonify({"status": "success", "emotion": emotion, "attention": attention})
 
+
 @app.route('/stop_analysis', methods=['POST'])
 def stop_analysis():
     data = request.get_json()
@@ -148,11 +163,7 @@ def stop_analysis():
     if not task_id or task_id not in ANALYSIS_DATA:
         return jsonify({"status": "error", "message": "task_id 잘못됨"}), 400
 
-    emotion_weights = {
-        "surprise": 5, "happy": 4, "sad": 3, "angry": 2, "neutral": 1
-    }
-
-    result_dir = os.path.join(RESULT_FOLDER, task_id)
+    result_dir = os.path.join(SHORTS_OUTPUT_DIR, task_id)
     os.makedirs(result_dir, exist_ok=True)
 
     records = ANALYSIS_DATA[task_id]
@@ -165,6 +176,9 @@ def stop_analysis():
     window_size = 10
     step = 5
     candidate_windows = []
+    emotion_weights = {
+        "surprise": 5, "happy": 4, "sad": 3, "angry": 2, "neutral": 1
+    }
 
     for t in np.arange(min_time, max_time - window_size, step):
         window = [r for r in records if t <= r["timestamp"] < t + window_size]
@@ -202,7 +216,7 @@ def stop_analysis():
         if len(top_windows) == 5:
             break
 
-    input_video = os.path.join(UPLOAD_FOLDER, f"{task_id}.mp4")
+    input_video = os.path.join(EMOTION_UPLOAD_DIR, f"{task_id}.mp4")
     for idx, win in enumerate(top_windows, start=1):
         best_start = win["start"]
         best_emotion = win["emotion"]
@@ -231,18 +245,21 @@ def stop_analysis():
 
     return jsonify({"status": "completed"})
 
+
 @app.route('/loading/<task_id>')
 def loading(task_id):
     return render_template('loading.html', task_id=task_id)
+
 
 @app.route('/progress/<task_id>')
 def progress(task_id):
     percent = PROGRESS.get(task_id, 0)
     return jsonify({'progress': percent})
 
+
 @app.route('/result/<task_id>')
 def result(task_id):
-    result_path = os.path.join(RESULT_FOLDER, task_id)
+    result_path = os.path.join(SHORTS_OUTPUT_DIR, task_id)
     if not os.path.exists(result_path):
         return "결과가 존재하지 않습니다.", 404
 
@@ -255,6 +272,19 @@ def result(task_id):
 
     return render_template('result.html', videos=videos, task_id=task_id)
 
+@app.route('/categories')
+def categories_view():
+    emotions = ["Angry", "Happy", "Sad", "Surprise", "Neutral"]
+    categories = {}
+    for emo in emotions:
+        dir_path = os.path.join(SHORTS_OUTPUT_DIR, 'categories', emo)
+        clips = []
+        if os.path.isdir(dir_path):
+            clips = [f for f in os.listdir(dir_path) if f.endswith('.mp4')]
+        categories[emo] = clips
+
+    return render_template('categories.html', categories=categories)
+
 @app.route('/save_clip', methods=['POST'])
 def save_clip():
     data = request.get_json()
@@ -265,12 +295,8 @@ def save_clip():
     if not filename or not emotion or not task_id:
         return jsonify({'status': 'error', 'message': '잘못된 요청'}), 400
 
-    if task_id == 'comment':
-        src = os.path.join(TEMP_CLIP_FOLDER, filename)
-    else:
-        src = os.path.join(RESULT_FOLDER, task_id, filename)
-
-    dest_dir = os.path.join(RESULT_FOLDER, 'categories', emotion)
+    src = os.path.join(SHORTS_OUTPUT_DIR, task_id, filename)
+    dest_dir = os.path.join(SHORTS_OUTPUT_DIR, 'categories', emotion)
     os.makedirs(dest_dir, exist_ok=True)
     dest = os.path.join(dest_dir, filename)
 
@@ -280,55 +306,35 @@ def save_clip():
     except Exception as e:
         return jsonify({'status': 'error', 'message': str(e)}), 500
 
-@app.route('/video/<emotion>/<filename>')
+@app.route('/stream_clip/<emotion>/<filename>')
 def stream_clip(emotion, filename):
-    file_path = os.path.join(RESULT_FOLDER, 'categories', emotion, filename)
-    range_header = request.headers.get('Range', None)
-    if not range_header:
-        return send_file(file_path, mimetype='video/mp4')
+    path = os.path.join(SHORTS_OUTPUT_DIR, 'categories', emotion, filename)
+    if os.path.exists(path):
+        return send_file(path)
+    else:
+        return "파일 없음", 404
 
-    size = os.path.getsize(file_path)
-    m = re.match(r'bytes=(\d+)-(\d*)', range_header)
-    if not m:
-        return send_file(file_path, mimetype='video/mp4')
 
-    start = int(m.group(1))
-    end = int(m.group(2)) if m.group(2) else size - 1
-    end = min(end, size - 1)
-    length = end - start + 1
+@app.route('/stream/<task_id>/<filename>')
+def stream_file(task_id, filename):
+    path = os.path.join(TIMESTAMP_OUTPUT_DIR, task_id, filename)
+    if os.path.exists(path):
+        return send_file(path)
+    else:
+        return "파일 없음", 404
 
-    with open(file_path, 'rb') as f:
-        f.seek(start)
-        data = f.read(length)
-
-    rv = Response(data, status=206, mimetype='video/mp4', direct_passthrough=True)
-    rv.headers.add('Content-Range', f'bytes {start}-{end}/{size}')
-    rv.headers.add('Accept-Ranges', 'bytes')
-    rv.headers.add('Content-Length', str(length))
-    return rv
-
-@app.route('/categories')
-def categories_view():
-    emotions = ["Angry", "Happy", "Sad", "Surprise", "Neutral"]
-    categories = {}
-    for emo in emotions:
-        dir_path = os.path.join(RESULT_FOLDER, 'categories', emo)
-        clips = []
-        if os.path.isdir(dir_path):
-            clips = [f for f in os.listdir(dir_path) if f.endswith('.mp4')]
-        categories[emo] = clips
-
-    return render_template('categories.html', categories=categories)
 
 @app.route('/shorts_comment', methods=['POST'])
 def shorts_comment():
     youtube_url = request.form['youtube_url']
     try:
-        for f in os.listdir(TEMP_CLIP_FOLDER):
-            os.remove(os.path.join(TEMP_CLIP_FOLDER, f))
+        for f in os.listdir(TIMESTAMP_OUTPUT_DIR):
+            path_to_file = os.path.join(TIMESTAMP_OUTPUT_DIR, f)
+            if os.path.isfile(path_to_file):
+                os.remove(path_to_file)
 
         result = subprocess.run(
-            [sys.executable, 'create_shorts.py', youtube_url],
+            [sys.executable, os.path.join(BASE_DIR, 'create_shorts.py'), youtube_url],
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
             text=True,
@@ -338,50 +344,42 @@ def shorts_comment():
         print(result.stdout)
         print(result.stderr)
 
-        return redirect(url_for('shorts_comment_result'))
+        return redirect(url_for('shorts_comment_result', video_id=extract_video_id(youtube_url)))
 
     except Exception as e:
         return render_template('shorts_comment_result.html', error=f"에러 발생: {e}")
+
 
 @app.route('/loading_page', methods=['POST'])
 def loading_page():
     youtube_url = request.form['youtube_url']
     return render_template('loading.html', youtube_url=youtube_url)
 
+
 @app.route('/shorts_comment_result')
 def shorts_comment_result():
-    result_files = sorted([f for f in os.listdir(TEMP_CLIP_FOLDER) if f.endswith('.mp4')])
-
+    video_id = request.args.get('video_id')
+    folder = os.path.join(TIMESTAMP_OUTPUT_DIR, video_id)
+    files = sorted([f for f in os.listdir(folder) if f.endswith('.mp4')])
+    ts_path = os.path.join(folder, 'timestamps.txt')
     timestamp_map = {}
-    timestamp_file = os.path.join(TEMP_CLIP_FOLDER, 'timestamps.txt')
-    if os.path.exists(timestamp_file):
-        with open(timestamp_file, 'r') as f:
+    if os.path.exists(ts_path):
+        with open(ts_path) as f:
             for line in f:
                 fname, ts = line.strip().split(',')
                 timestamp_map[fname] = int(ts)
-
-    videos_info = []
-    for f in result_files:
-        ts = timestamp_map.get(f, None)
-        videos_info.append({'filename': f, 'timestamps': [ts] if ts is not None else []})
-
+    videos_info = [{'filename': f"{video_id}/{f}", 'timestamps': [timestamp_map.get(f)]} for f in files]
     return render_template('shorts_comment_result.html', videos_info=videos_info)
 
-@app.route('/stream/<filename>')
-def stream_file(filename):
-    file_path = os.path.join(TEMP_CLIP_FOLDER, filename)
-    if os.path.exists(file_path):
-        return send_file(file_path)
-    else:
-        return "파일을 찾을 수 없습니다.", 404
 
-@app.route('/download/<filename>')
-def download_file(filename):
-    file_path = os.path.join(TEMP_CLIP_FOLDER, filename)
+@app.route('/download/<task_id>/<filename>')
+def download_file(task_id, filename):
+    file_path = os.path.join(TIMESTAMP_OUTPUT_DIR, task_id, filename)
     if os.path.exists(file_path):
         return send_file(file_path, as_attachment=True)
     else:
         return "파일을 찾을 수 없습니다.", 404
+
 
 if __name__ == '__main__':
     app.run(debug=True, port=5001)
