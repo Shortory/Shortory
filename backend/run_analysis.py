@@ -2,7 +2,6 @@ import os
 import cv2
 import time
 import numpy as np
-import dlib
 from tensorflow.keras.models import load_model
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -14,7 +13,6 @@ emotion_weights = {"surprise": 5, "happy": 4, "sad": 3, "angry": 2, "neutral": 1
 mapped_emotions = ["angry", "happy", "neutral", "sad", "surprise"]
 
 model = load_model(os.path.join(MODEL_DIR, "emotion_tl2_model.h5"), compile=False)
-predictor = dlib.shape_predictor(os.path.join(MODEL_DIR, "shape_predictor_68_face_landmarks.dat"))
 
 face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
 
