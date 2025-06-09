@@ -197,12 +197,12 @@ shortoty_web/
 
 ## 깃허브 폴더 설명
 
-- **backend/** : Flask 서버와 분석 스크립트 (app.py, run_analysis.py, create_shorts.py 등)
+- **backend/** : Flask 서버와 분석 스크립트 (app.py, run_analysis.py, create_shorts.py)
 - **models/** : 감정 분석 및 얼굴 인식 모델 파일
-- **frontend/** : 사용자 인터페이스 HTML 템플릿 (home.html 등)
+- **frontend/** : 사용자 인터페이스 HTML 템플릿
 - **static/** : 생성된 숏폼 영상 및 감정별 클립 저장 폴더
-- **emotion_uploads/** : 감정 분석용 업로드 영상 저장
-- **timestamp_uploads/** : 댓글 기반 분석용 업로드 영상 저장
+- **emotion_uploads/** : 감정 분석용 업로드 원본 영상 저장
+- **timestamp_uploads/** : 댓글 기반 분석용 업로드 원본 영상 저장
 
 <br />
 
