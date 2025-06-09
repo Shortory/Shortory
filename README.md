@@ -141,7 +141,9 @@ python app.py
 
 <br />   
 
-<p align="center"><strong>💚 팀원 소개</strong></p>
+<p align="center"><strong>
+  
+💚 팀원 소개</strong></p>
 
 | FULLSATCK | FE & DESIGN | AI | AI |
 | --- | --- | --- | --- |
