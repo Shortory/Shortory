@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>타임스탬프 기반 숏폼 제작</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      background: linear-gradient(135deg, #A0E7E5, #CAF7F2, #9DECF9);
+      font-family: 'Noto Sans KR', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      position: relative;
+      overflow: auto;
+    }
+
+    .glow-circle {
+      position: absolute;
+      width: 420px;
+      height: 420px;
+      background: radial-gradient(circle, #a0f1dc, #87e3f0, transparent);
+      filter: blur(80px);
+      border-radius: 50%;
+      z-index: 0;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      opacity: 0.5;
+    }
+
+    .container {
+      position: relative;
+      z-index: 1;
+      background-color: rgba(255, 255, 255, 0.92);
+      padding: 40px;
+      border-radius: 20px;
+      text-align: center;
+      box-shadow: 0 4px 40px rgba(0, 0, 0, 0.08);
+      width: 90%;
+      max-width: 480px;
+    }
+
+    .container h1 {
+      font-size: 2rem;
+      margin-bottom: 30px;
+      font-weight: 700;
+      color: #222;
+    }
+
+    .container label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+      color: #222;
+      text-align: left;
+    }
+
+    .container input[type="text"] {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      font-size: 1rem;
+      box-sizing: border-box;
+    }
+
+    .container button {
+      background-color: #1B3444;
+      color: #fff;
+      border: none;
+      padding: 12px 24px;
+      font-size: 1rem;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: bold;
+      box-shadow: 0 0 12px rgba(46, 139, 139, 0.5);
+      transition: all 0.3s ease;
+      width: 100%;
+      max-width: 240px;
+    }
+
+    .container button:hover {
+      background-color: #2e8b8b;
+    }
+
+    .container a {
+      display: inline-block;
+      margin-top: 20px;
+      color: #2e8b8b;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .container a:hover {
+      text-decoration: underline;
+    }
+
+    footer {
+      margin-top: 40px;
+      text-align: center;
+      color: #444;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="glow-circle"></div>
+
+  <div class="container">
+    <h1>🕒 타임스탬프 기반 숏폼 제작</h1>
+    <form method="post" action="{{ url_for('loading_page') }}">
+      <label for="youtube_url">YouTube URL 입력:</label>
+      <input type="text" name="youtube_url" id="youtube_url" required autocomplete="off">
+      <button type="submit">분석 시작</button>
+    </form>
+    <a href="{{ url_for('home') }}">← 메인으로 돌아가기</a>
+  </div>
+
+  <footer>© 찰나의 Shortory</footer>
+</body>
+</html>

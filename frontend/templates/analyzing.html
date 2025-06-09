@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>감정 분석 중...</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Noto Sans KR', sans-serif;
+      background: linear-gradient(135deg, #A0E7E5, #CAF7F2, #9DECF9);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 30px;
+    }
+
+    h2 {
+      color: #1B3444;
+      margin-bottom: 10px;
+    }
+
+    .video-container {
+      display: flex;
+      gap: 40px;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #player,
+    #webcam {
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.15);
+    }
+
+    #player {
+      width: 720px;
+      height: 405px;
+      background-color: black;
+    }
+
+    #webcam {
+      width: 480px;
+      height: 360px;
+      background-color: black;
+      transform: scaleX(-1);
+      -webkit-transform: scaleX(-1);
+    }
+
+    p {
+      margin-top: 30px;
+      color: #555;
+      font-size: 1.1rem;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>🔍 감정 분석 중입니다...</h2>
+
+  <div class="video-container">
+    <div id="player"></div>
+    <video id="webcam" autoplay playsinline></video>
+  </div>
+
+  <p>영상을 끝까지 시청하면 자동으로 결과 페이지로 이동합니다.</p>
+
+  <script src="https://www.youtube.com/iframe_api"></script>
+  <script>
+    const taskId = "{{ task_id }}";
+    let webcamStream = null;
+    let sendInterval = null;
+
+    let player;
+    function onYouTubeIframeAPIReady() {
+      player = new YT.Player('player', {
+        videoId: "{{ youtube_id }}",
+        playerVars: { autoplay: 1 },
+        events: { onStateChange: onPlayerStateChange }
+      });
+    }
+
+    function onPlayerStateChange(event) {
+      if (event.data === YT.PlayerState.PLAYING) {
+        fetch("/start_analysis", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ task_id: taskId })
+        });
+        sendInterval = setInterval(sendFrameToServer, 1000);
+      } else if (event.data === YT.PlayerState.ENDED) {
+        clearInterval(sendInterval);
+        fetch("/stop_analysis", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ task_id: taskId })
+        }).then(() => {
+          window.location.href = `/result/${taskId}`;
+        });
+      }
+    }
+
+    const webcam = document.getElementById('webcam');
+    navigator.mediaDevices.getUserMedia({ video: true, audio: false })
+      .then(stream => {
+        webcamStream = stream;
+        webcam.srcObject = stream;
+        webcam.play().catch(() => {});
+      })
+      .catch(() => {});
+
+    function sendFrameToServer() {
+      if (!webcam.videoWidth) return;
+      const canvas = document.createElement("canvas");
+      canvas.width = webcam.videoWidth;
+      canvas.height = webcam.videoHeight;
+      const ctx = canvas.getContext("2d");
+      ctx.drawImage(webcam, 0, 0);
+      const imageData = canvas.toDataURL("image/jpeg");
+
+      fetch("/analyze_frame", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ image: imageData, task_id: taskId })
+      }).catch(() => {});
+    }
+  </script>
+
+</body>
+</html>

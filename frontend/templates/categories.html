@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>저장된 클립 보관함</title>
+  <style>
+    body {
+      margin: 0;
+      background: #FFF9C4;
+      font-family: 'Noto Sans KR', sans-serif;
+      padding: 40px;
+    }
+
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 30px;
+    }
+
+    .header h1 {
+      color: #1B3444;
+      font-size: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin: 0;
+    }
+
+    .header-nav {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .header-nav a {
+      color: #1B3444;
+      text-decoration: none;
+      font-size: 0.9rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      cursor: pointer;
+    }
+
+    .header-nav a:hover {
+      text-decoration: underline;
+    }
+
+    .emotion-section {
+      margin-top: 40px;
+    }
+
+    .emotion-section h2 {
+      font-size: 1.2rem;
+      border-bottom: 2px solid #1B3444;
+      display: inline-block;
+      margin-bottom: 10px;
+    }
+
+    .clips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .clip-card {
+      background: rgba(255,255,255,0.9);
+      border-radius: 10px;
+      padding: 15px;
+      width: 300px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+
+    .clip-card video {
+      width: 100%;
+      border-radius: 8px;
+      margin-bottom: 8px;
+    }
+
+    .clip-card p {
+      margin: 0;
+      font-size: 0.9rem;
+      color: #444;
+      word-break: break-word;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <h1>📁 저장된 클립 보관함</h1>
+    <div class="header-nav">
+      <a onclick="history.back(); return false;">◀ 분석 결과로 돌아가기</a>
+      <a href="{{ url_for('home') }}">🏠 홈으로</a>
+    </div>
+  </div>
+
+  {% for emotion, clips in categories.items() %}
+    {% if clips %}
+      <div class="emotion-section">
+        <h2>{{ emotion }}</h2>
+        <div class="clips">
+          {% for filename in clips %}
+            <div class="clip-card">
+              <video controls muted>
+                <source src="{{ url_for('stream_clip', emotion=emotion, filename=filename) }}" type="video/mp4">
+                브라우저가 video 태그를 지원하지 않습니다.
+              </video>
+              <p>{{ filename }}</p>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    {% endif %}
+  {% endfor %}
+
+</body>
+</html>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>분석 중입니다...</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      background: linear-gradient(135deg, #A0E7E5, #CAF7F2, #9DECF9);
+      font-family: 'Noto Sans KR', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .glow-circle {
+      position: absolute;
+      width: 420px;
+      height: 420px;
+      background: radial-gradient(circle, #a0f1dc, #87e3f0, transparent);
+      filter: blur(80px);
+      border-radius: 50%;
+      z-index: 0;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      opacity: 0.5;
+    }
+
+    .container {
+      position: relative;
+      z-index: 1;
+      background-color: rgba(255, 255, 255, 0.92);
+      padding: 40px;
+      border-radius: 20px;
+      text-align: center;
+      box-shadow: 0 4px 40px rgba(0, 0, 0, 0.08);
+      width: 90%;
+      max-width: 480px;
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+      font-weight: 700;
+      color: #1B3444;
+    }
+
+    p {
+      font-size: 1.1rem;
+      color: #444;
+    }
+
+    .loader-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 30px;
+    }
+
+    .loader {
+      width: 60px;
+      height: 60px;
+      border: 6px solid #ccc;
+      border-top-color: #1B3444;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    footer {
+      margin-top: 40px;
+      text-align: center;
+      color: #444;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="glow-circle"></div>
+  <div class="container">
+    <h1>📊 분석 중입니다...</h1>
+    <p>잠시만 기다려 주세요. 숏폼을 생성 중입니다.</p>
+
+    <div class="loader-wrapper">
+      <div class="loader"></div>
+    </div>
+  </div>
+
+  <form id="redirectForm" method="post" action="{{ url_for('shorts_comment') }}">
+    <input type="hidden" name="youtube_url" value="{{ youtube_url }}">
+  </form>
+  <script>
+    setTimeout(function() {
+      document.getElementById('redirectForm').submit();
+    }, 1000);
+  </script>
+
+  <footer>© 찰나의 Shortory</footer>
+</body>
+</html>

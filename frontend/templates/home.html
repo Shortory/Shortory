@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>Shorts 생성기 - 홈</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, #A0E7E5, #CAF7F2, #9DECF9);
+      font-family: 'Noto Sans KR', sans-serif;
+      position: relative;
+      overflow: hidden;
+      flex-direction: column;
+    }
+
+    .glow-circle {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 420px;
+      height: 420px;
+      background: radial-gradient(circle, #a0f1dc, #87e3f0, transparent);
+      filter: blur(80px);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      opacity: 0.5;
+      z-index: 0;
+    }
+
+    .container {
+      position: relative;
+      z-index: 1;
+      background-color: rgba(255, 255, 255, 0.95);
+      padding: 40px 30px;
+      border-radius: 20px;
+      text-align: center;
+      box-shadow: 0 4px 40px rgba(0, 0, 0, 0.08);
+      width: 90%;
+      max-width: 480px;
+      box-sizing: border-box;
+    }
+
+    .logo {
+      width: 120px;
+      margin-bottom: 20px;
+    }
+
+    .container h1 {
+      font-size: 2rem;
+      margin-bottom: 30px;
+      font-weight: 700;
+      color: #222;
+    }
+
+    a.button {
+      display: inline-block;
+      padding: 15px 30px;
+      margin: 10px 0;
+      background-color: #1B3444;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 10px;
+      font-weight: bold;
+      box-shadow: 0 0 12px rgba(46, 139, 139, 0.5);
+      transition: background-color 0.3s ease;
+      width: auto;
+      white-space: nowrap;
+      box-sizing: border-box;
+    }
+
+    a.button:hover {
+      background-color: #2e8b8b;
+      color: #fff;
+    }
+
+    footer {
+      margin-top: 20px;
+      font-size: 0.9rem;
+      color: #444;
+      z-index: 1;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="glow-circle"></div>
+
+  <div class="container">
+    <img src="{{ url_for('static', filename='logo.png') }}" alt="Shortory 로고" class="logo">
+
+    <h1>찰나의 Shortory</h1>
+
+    <a href="{{ url_for('emotion_form') }}" class="button">
+      🎭 감정 분석 기반 숏폼 제작
+    </a>
+
+    <a href="{{ url_for('timestamp_form') }}" class="button">
+      🕒 타임스탬프 기반 숏폼 제작
+    </a>
+  </div>
+
+  <footer>© 찰나의 Shortory</footer>
+</body>
+</html>
