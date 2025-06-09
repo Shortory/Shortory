@@ -12,7 +12,8 @@
   <img src="https://github.com/user-attachments/assets/255f9526-a164-4130-b27d-3e6b5ef13110" width="300" />
 </p>
 
-**시청자의 감정과 댓글의 타임스탬프를 분석해 영상 속 하이라이트를 자동으로 추출하는 숏폼 제작 웹 서비스**  
+ 
+<h4 align="center">시청자의 감정과 댓글의 타임스탬프를 분석해 영상 속 하이라이트를 자동으로 추출하는 숏폼 제작 웹 서비스</strong></h4>
 
 <br />
 
