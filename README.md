@@ -55,8 +55,9 @@
 ## ⚙️ Architecture 구조도
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/2f4d1c7e-9c80-481e-a640-e14c72fefcc3" alt="architecture" width="70%">
+  <img src="https://github.com/user-attachments/assets/9354f1c0-da93-4daf-b28c-4f297fa61d68" alt="아키텍처" width="70%">
 </p>
+
 
 <br />
 
